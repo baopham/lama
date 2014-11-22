@@ -28,14 +28,11 @@ Route::filter('hasAccessAndIsOwner', function($route, $request, $value)
         if (!$user->hasAccess($value)) {
             return Response::make('Unauthorized', 403); 
         }
-        $groups = array();
-        foreach($user->getGroups() as $group){
-            $groups[] = $group->name;
-        }
-        if(!in_array('Admins',$groups,true)){
+        $admin = Sentry::findGroupByName('Admins');
+        if (!$user->inGroup($admin)) {
             $id = $route->getParameter('id');
-            if($id !== $user->id){
-               return Response::make('Unauthorized', 403); 
+            if ((string) $id !== (string) $user->id) {
+                return Response::make('Unauthorized', 403);
             }
         }
     }
