@@ -13,7 +13,7 @@
     "npm": "1.3.x"
   },
   "scripts": {
-    "postinstall": "./node_modules/protractor/bin/webdriver-manager update --chrome && cp ./node_modules/protractor/example/chromeOnlyConf.js protractor_conf.js"
+    "postinstall": "./node_modules/protractor/bin/webdriver-manager update --chrome && cp ./node_modules/protractor/example/conf.js protractor_conf.js"
   },
   "dependencies": {
     "bin-version-check": "~0.1.0",
@@ -36,7 +36,7 @@
     "karma-jasmine": "~0.1.5",
     "karma-phantomjs-launcher": "^0.1.4",
     "load-grunt-tasks": "^0.6.0",
-    "protractor": "^1.2.0",
+    "protractor": "^1.4.0",
     "time-grunt": "^0.3.2"
   }
 }
