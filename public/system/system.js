@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('lama.system', ['ui.router', 'restangular'])
+angular.module('lama.system', ['ui.router', 'restangular', 'ui.bootstrap'])
     .config(['$httpProvider', function ($httpProvider) {
-        // Crossdomain requests not allowed if you want do cors request see filter.php 
+        // Crossdomain requests not allowed if you want do cors request see filter.php
         $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     }])
     .run(['$rootScope', '$state', '$log', 'Global', function ($rootScope, $state, $log, Global) {
@@ -10,4 +10,3 @@ angular.module('lama.system', ['ui.router', 'restangular'])
         $rootScope.$log = $log;
         $rootScope.global = Global;
     }]);
-   
