@@ -43,7 +43,7 @@
                 <script src="<% asset($file);  %>"></script>
             @endforeach
         @endif
-        @if(Config::get('lama.isdev'))
+        @if (Config::get('lama.isdev'))
             <script src="//localhost:35729/livereload.js"></script>
         @endif
     </body>
