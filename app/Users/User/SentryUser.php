@@ -10,7 +10,7 @@ class SentryUser implements UserInterface {
     /**
      * Construct a new SentryUser Object
      */
-    public function __construct(Sentry $sentry) 
+    public function __construct(Sentry $sentry)
     {
         $this->sentry = $sentry;
         $this->throttleProvider = $this->sentry->getThrottleProvider();
@@ -19,75 +19,76 @@ class SentryUser implements UserInterface {
 
     /**
      *  Create an user.
-     * 
+     *
      * @param  array $data
-     * 
+     *
      * @return Array
      */
-    public function create($data) 
+    public function create($data)
     {
         $result = array('success' => 0);
         try {
             //Attempt to register the user. 
             $user = $this->sentry->createUser(
-                    array(
-                'email' => e($data['email']),
-                'password' => e($data['password']),
-                'fullname' => e($data['fullname']),
-                'username' => e($data['username']),
-                'activated'=>true));
+                array(
+                    'email' => e($data['email']),
+                    'password' => e($data['password']),
+                    'fullname' => e($data['fullname']),
+                    'username' => e($data['username']),
+                    'activated' => true
+                ));
             //success!
             $result['success'] = 1;
             $groups = array();
-            foreach($data['groups'] as $groupId){
+            foreach ($data['groups'] as $groupId) {
                 $userGroup = $this->sentry->getGroupProvider()->findById($groupId);
                 // Assign the groups to the users
                 $user->addGroup($userGroup);
                 $groups[] = $userGroup->name;
             }
-            
+
             $result['user'] = array(
                 'id' => $user->getId(),
                 'email' => $user->getEmail(),
                 'fullname' => $user->getFullname(),
                 'username' => $user->getUsername(),
-                'groups' => $groups);
-        } 
-        catch (\Cartalyst\Sentry\Users\LoginRequiredException $e) {
-             $result['error'] = trans('user.loginreq');
+                'groups' => $groups
+            );
+        } catch (\Cartalyst\Sentry\Users\LoginRequiredException $e) {
+            $result['error'] = trans('user.loginreq');
         } catch (\Cartalyst\Sentry\Users\PasswordRequiredException $e) {
-             $result['error'] = trans('user.passwordreq');;
+            $result['error'] = trans('user.passwordreq');;
         } catch (\Cartalyst\Sentry\Users\UserExistsException $e) {
             $result['error'] = trans('user.exists');
         } catch (\Cartalyst\Sentry\Groups\GroupNotFoundException $e) {
             $result['error'] = trans('user.notfoundgroup');
-        }
-        catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Illuminate\Database\QueryException $e) {
             $result['error'] = trans('user.querror');
         } catch (\Exception $e) {
             $result['error'] = trans('user.generror');
         }
         return $result;
     }
-    
+
     /**
      *  Register an user.
-     * 
+     *
      * @param  array $data
-     * 
+     *
      * @return Array
      */
-    public function register($data) 
+    public function register($data)
     {
         $result = array('success' => 0);
         try {
             //Attempt to register the user. 
             $user = $this->sentry->register(
-                    array(
-                'email' => e($data['email']),
-                'password' => e($data['password']),
-                'fullname' => e($data['fullname']),
-                'username' => e($data['username'])), Config::get('lama.activateAndLoggedAfterRegister'));
+                array(
+                    'email' => e($data['email']),
+                    'password' => e($data['password']),
+                    'fullname' => e($data['fullname']),
+                    'username' => e($data['username'])
+                ), Config::get('lama.activateAndLoggedAfterRegister'));
             //success!
             $result['success'] = 1;
             $result['user'] = array(
@@ -96,7 +97,8 @@ class SentryUser implements UserInterface {
                 'fullname' => $user->getFullname(),
                 'username' => $user->getUsername(),
                 'groups' => array('Users'),
-                'activated'=>$user->getActivated());
+                'activated' => $user->getActivated()
+            );
             $userGroup = $this->sentry->getGroupProvider()->findByName('Users');
             // Assign the groups to the users
             $user->addGroup($userGroup);
@@ -104,10 +106,9 @@ class SentryUser implements UserInterface {
             if (Config::get('lama.activateAndLoggedAfterRegister')) {
                 $this->sentry->login($user, false);
                 $result['logged'] = 1;
-            }
-            else{
-               $result['user']['activationCode'] = $user->getActivationCode();
-               $result['logged'] = 0; 
+            } else {
+                $result['user']['activationCode'] = $user->getActivationCode();
+                $result['logged'] = 0;
             }
         } catch (\Cartalyst\Sentry\Users\LoginRequiredException $e) {
             $result['error'] = trans('user.loginreq');
@@ -131,73 +132,73 @@ class SentryUser implements UserInterface {
 
     /**
      * Update user.
-     * 
-     * @param  int $id      
+     *
+     * @param  int $id
      * @param  array $data
-     * 
+     *
      * @return Array
      */
-    public function edit($id,$data) 
+    public function edit($id, $data)
     {
         $result = array('success' => 0);
-        try { 
+        try {
             $user = $this->sentry->findUserById($id);
             $fullname = e($data['fullname']);
             $email = e($data['email']);
             $username = e($data['username']);
-            if($username !== $user->username ){
+            if ($username !== $user->username) {
                 $user->username = $username;
             }
-            if($email !== $user->email ){
+            if ($email !== $user->email) {
                 $user->email = $email;
             }
             $user->fullname = $fullname;
             $user->save();
-            
+
             $groups = $user->getGroups();
-           
-            foreach($groups as $group){
+
+            foreach ($groups as $group) {
                 $user->removeGroup($group);
             }
-            
-            foreach($data['groups'] as $key => $value){
+
+            foreach ($data['groups'] as $key => $value) {
                 $userGroup = $this->sentry->getGroupProvider()->findById($key);
                 $user->addGroup($userGroup);
                 $groups[] = $userGroup->name;
             }
-           
+
             $result['success'] = 1;
             $result['user'] = array(
                 'id' => $user->getId(),
                 'email' => $user->email,
                 'fullname' => $user->fullname,
                 'username' => $user->username,
-                'groups'=>$groups
+                'groups' => $groups
             );
-            
+
         } catch (\Cartalyst\Sentry\Users\UserExistsException $e) {
             $result['error'] = trans('user.exists');
         } catch (\Cartalyst\Sentry\Users\UserNotFoundException $e) {
             $result['error'] = trans('user.notfound');
         } catch (Cartalyst\Sentry\Groups\GroupNotFoundException $e) {
             $result['error'] = trans('user.notfoundgroup');
-        }catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Illuminate\Database\QueryException $e) {
             $result['error'] = trans('user.exists');
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             $result['error'] = trans('user.generror');
         }
         return $result;
     }
-    
+
     /**
      * Update account.
-     * 
-     * @param  int $id      
+     *
+     * @param  int $id
      * @param  array $data
-     * 
+     *
      * @return Array
      */
-    public function account($id,$data) 
+    public function account($id, $data)
     {
         $result = array('success' => 0);
         try {
@@ -205,10 +206,10 @@ class SentryUser implements UserInterface {
             $fullname = e($data['fullname']);
             $email = e($data['email']);
             $username = e($data['username']);
-            if($username !== $user->username ){
+            if ($username !== $user->username) {
                 $user->username = $username;
             }
-            if($email !== $user->email ){
+            if ($email !== $user->email) {
                 $user->email = $email;
             }
             $user->fullname = $fullname;
@@ -220,33 +221,33 @@ class SentryUser implements UserInterface {
                 'fullname' => $user->fullname,
                 'username' => $user->username,
             );
-            
+
         } catch (\Cartalyst\Sentry\Users\UserExistsException $e) {
             $result['error'] = trans('user.exists');
         } catch (\Cartalyst\Sentry\Users\UserNotFoundException $e) {
             $result['error'] = trans('user.notfound');
         } catch (\Illuminate\Database\QueryException $e) {
             $result['error'] = trans('user.exists');
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             $result['error'] = trans('user.generror');
         }
         return $result;
     }
-    
+
     /**
      * Update password.
-     * 
-     * @param  int $id      
+     *
+     * @param  int $id
      * @param  array $data
-     * 
+     *
      * @return Array
      */
-    public function password($id,$data) 
+    public function password($id, $data)
     {
         $result = array('success' => 0);
         try {
             $user = $this->sentry->findUserById($id);
-            if ($user->checkHash(e($data['old_password']), $user->getPassword())){
+            if ($user->checkHash(e($data['old_password']), $user->getPassword())) {
                 $user->password = e($data['password']);
                 $user->save();
                 $result['success'] = 1;
@@ -256,33 +257,32 @@ class SentryUser implements UserInterface {
                     'fullname' => $user->fullname,
                     'username' => $user->username
                 );
-            }
-            else {
+            } else {
                 $result['error'] = trans('user.oldpassword');
-            }        
-        } catch (\Cartalyst\Sentry\Users\LoginRequiredException $e){
+            }
+        } catch (\Cartalyst\Sentry\Users\LoginRequiredException $e) {
             $result['error'] = trans('loginreq');
-	}
-        catch (\Cartalyst\Sentry\Users\UserExistsException $e) {
+        } catch (\Cartalyst\Sentry\Users\UserExistsException $e) {
             $result['error'] = trans('user.exists');
         } catch (\Cartalyst\Sentry\Users\UserNotFoundException $e) {
             $result['error'] = trans('user.notfound');
         } catch (\Illuminate\Database\QueryException $e) {
             $result['error'] = trans('user.exists');
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             $result['error'] = trans('user.generror');
         }
         return $result;
     }
-    
+
     /**
-     * Handle a password reset 
-     * 
-     * @param  Array $data 
-     * 
-     * @return Array      
+     * Handle a password reset
+     *
+     * @param  Array $data
+     *
+     * @return Array
      */
-    public function forgot($data) {
+    public function forgot($data)
+    {
         $result = array('success' => 0);
         try {
             $user = $this->sentry->getUserProvider()->findByLogin(e($data['email']));
@@ -290,8 +290,9 @@ class SentryUser implements UserInterface {
             $result['user'] = array(
                 'id' => $user->getId(),
                 'email' => $user->getEmail(),
-                'resetCode' => $user->getResetPasswordCode());
-           
+                'resetCode' => $user->getResetPasswordCode()
+            );
+
         } catch (\Cartalyst\Sentry\Users\UserNotFoundException $e) {
             $result['error'] = trans('user.notfound');
         } catch (\Illuminate\Database\QueryException $e) {
@@ -301,16 +302,17 @@ class SentryUser implements UserInterface {
         }
         return $result;
     }
-    
+
     /**
      * Suspend an user
-     * 
-     * @param  int $id      
+     *
+     * @param  int $id
      * @param  array $data
-     * 
-     * @return Array          
+     *
+     * @return Array
      */
-    public function suspend($id, $data) {
+    public function suspend($id, $data)
+    {
         $result = array('success' => 0);
         try {
             // Find the user using the user id
@@ -332,12 +334,13 @@ class SentryUser implements UserInterface {
 
     /**
      * Unsuspend an user.
-     * 
-     * @param  int $id 
-     * 
+     *
+     * @param  int $id
+     *
      * @return Array
      */
-    public function unSuspend($id) {
+    public function unSuspend($id)
+    {
         $result = array('success' => 0);
         try {
             // Find the user using the user id
@@ -357,28 +360,28 @@ class SentryUser implements UserInterface {
 
     /**
      * Ban an user
-     * 
-     * @param  int $id 
-     * 
-     * @return Array     
+     *
+     * @param  int $id
+     *
+     * @return Array
      */
-    public function ban($id) {
-       $result = array('success' => 0);
+    public function ban($id)
+    {
+        $result = array('success' => 0);
         try {
             // Find the user using the user id
             $throttle = $this->sentry->findThrottlerByUserId($id);
             $result['ban'] = 0;
             if ($throttle->isBanned()) {
-                 $throttle->unBan();
-            }
-            else{
-               $result['ban'] = 1;
-               $throttle->ban(); 
+                $throttle->unBan();
+            } else {
+                $result['ban'] = 1;
+                $throttle->ban();
             }
             $result['success'] = 1;
         } catch (\Cartalyst\Sentry\Users\UserNotFoundException $e) {
             $result['error'] = trans('user.notfound');
-        }catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Illuminate\Database\QueryException $e) {
             $result['error'] = trans('user.querror');
         } catch (\Exception $e) {
             $result['error'] = trans('user.generror');
@@ -388,13 +391,13 @@ class SentryUser implements UserInterface {
 
     /**
      * Attempt activation for the specified user
-     * 
-     * @param  int $id   
-     * @param  string $code 
-     * 
-     * @return array       
+     *
+     * @param  int $id
+     * @param  string $code
+     *
+     * @return array
      */
-    public function activate($id, $code) 
+    public function activate($id, $code)
     {
         $result = array('success' => 0);
         try {
@@ -405,27 +408,27 @@ class SentryUser implements UserInterface {
                 // User activation passed
                 $result['success'] = 1;
                 $result['user'] = $user;
-            } 
+            }
         } catch (\Cartalyst\Sentry\Users\UserAlreadyActivatedException $e) {
-           $result['error'] = trans('user.alreadyactive');
+            $result['error'] = trans('user.alreadyactive');
         } catch (\Cartalyst\Sentry\Users\UserExistsException $e) {
-           $result['error'] = trans('user.exists');
+            $result['error'] = trans('user.exists');
         } catch (\Cartalyst\Sentry\Users\UserNotFoundException $e) {
-           $result['message'] = trans('user.notfound');
-        }catch (\Illuminate\Database\QueryException $e) {
+            $result['message'] = trans('user.notfound');
+        } catch (\Illuminate\Database\QueryException $e) {
             $result['error'] = trans('user.querror');
         } catch (\Exception $e) {
             $result['error'] = trans('user.generror');
         }
         return $result;
     }
-    
+
     /**
      * Process the password reset request
-     * 
-     * @param  int $id   
-     * @param  string $code 
-     * 
+     *
+     * @param  int $id
+     * @param  string $code
+     *
      * @return Array
      */
     public function resetPassword($id, $code)
@@ -442,7 +445,8 @@ class SentryUser implements UserInterface {
                 $result['user'] = array(
                     'id' => $user->getId(),
                     'email' => $user->getEmail(),
-                    'newPassword' => $newPassword);
+                    'newPassword' => $newPassword
+                );
             }
         } catch (\Cartalyst\Sentry\Users\UserNotFoundException $e) {
             $result['success'] = false;
@@ -452,14 +456,15 @@ class SentryUser implements UserInterface {
     }
 
     /**
-     * Attempt Login 
-     * 
+     * Attempt Login
+     *
      * @param  Sentry $user
      * @param  boolean $remember
-     * 
-     * @return array       
+     *
+     * @return array
      */
-    public function login($user, $remember) {
+    public function login($user, $remember)
+    {
         $result = array('success' => 0);
         try {
             $this->sentry->login($user, $remember);
@@ -482,16 +487,16 @@ class SentryUser implements UserInterface {
         }
         return $result;
     }
-            
-    
+
     /**
      * Return a specific user from the given id
-     * 
+     *
      * @param  integer $id
-     * 
+     *
      * @return User
      */
-    public function byId($id) {
+    public function byId($id)
+    {
         try {
             $user = $this->sentry->findUserById($id);
             $user->groups = $user->getGroups();
@@ -506,7 +511,7 @@ class SentryUser implements UserInterface {
      *
      * @return stdObject Collection of users
      */
-    public function all() 
+    public function all()
     {
         $users = $this->sentry->findAllUsers();
         foreach ($users as $user) {
@@ -538,15 +543,16 @@ class SentryUser implements UserInterface {
         }
         return $users;
     }
-    
+
     /**
      * Remove an user.
      *
-     * @param  int  $id
-     * 
+     * @param  int $id
+     *
      * @return Boolean
      */
-    public function destroy($id) {
+    public function destroy($id)
+    {
         try {
             // Find the user using the user id
             $user = $this->sentry->findUserById($id);
@@ -563,7 +569,7 @@ class SentryUser implements UserInterface {
      * From http://www.phpscribble.com/i4xzZu/Generate-random-passwords-of-given-length-and-strength
      *
      */
-    public function generatePassword($length,$strength) 
+    public function generatePassword($length, $strength)
     {
         $vowels = 'aeiouy';
         $consonants = 'bcdfghjklmnpqrstvwxz';

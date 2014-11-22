@@ -1,6 +1,6 @@
 <?php namespace Users\Session;
 
- interface SessionInterface {
+interface SessionInterface {
 
     /**
      * Try to authenticate an user.

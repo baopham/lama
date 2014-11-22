@@ -2,14 +2,12 @@
 
 use Users\Validation\ValidableInterface;
 
-
 abstract class AbstractForm {
 
-    
     /**
      * Validator
      *
-     * @var Users\Form\ValidableInterface 
+     * @var Users\Form\ValidableInterface
      */
     protected $validator;
 
@@ -18,23 +16,22 @@ abstract class AbstractForm {
         $this->validator = $validator;
     }
 
-    
     /**
      * Return validation data
      *
-     * @return array 
+     * @return array
      */
-    public function data() 
+    public function data()
     {
         return $this->validator->data();
     }
-    
+
     /**
      * Return any validation errors
      *
-     * @return array 
+     * @return array
      */
-    public function errors() 
+    public function errors()
     {
         return $this->validator->errors();
     }
@@ -42,9 +39,9 @@ abstract class AbstractForm {
     /**
      * Test if form validator passes
      *
-     * @return boolean 
+     * @return boolean
      */
-    public function valid(array $input) 
+    public function valid(array $input)
     {
         return $this->validator->with($input)->passes();
     }

@@ -7,7 +7,7 @@ class SentrySession implements SessionInterface {
     protected $sentry;
     protected $throttleProvider;
 
-    public function __construct(Sentry $sentry) 
+    public function __construct(Sentry $sentry)
     {
         $this->sentry = $sentry;
         $this->throttleProvider = $this->sentry->getThrottleProvider();
@@ -19,11 +19,11 @@ class SentrySession implements SessionInterface {
      *
      * @return Array
      */
-    public function store($data) 
+    public function store($data)
     {
         $result = array('success' => 0);
         try {
-            
+
             //Check for suspension or banned status
             $user = $this->sentry->getUserProvider()->findByLogin(e($data['email']));
             $throttle = $this->throttleProvider->findByUserId($user->id);
@@ -42,19 +42,19 @@ class SentrySession implements SessionInterface {
                 $user = $this->sentry->authenticate($credentials, false);
             }
             $groups = array();
-            foreach($user->getGroups() as $group){
+            foreach ($user->getGroups() as $group) {
                 $groups[] = $group->name;
             }
             $result['success'] = 1;
-            
+
             $result['user'] = array(
-                'id' => $user->getId(), 
+                'id' => $user->getId(),
                 'email' => $user->getEmail(),
-                'fullname' => $user->getFullname(), 
+                'fullname' => $user->getFullname(),
                 'username' => $user->getUsername(),
-                'groups'=>$groups);
-        } 
-        catch (\Cartalyst\Sentry\Users\LoginRequiredException $e) {
+                'groups' => $groups
+            );
+        } catch (\Cartalyst\Sentry\Users\LoginRequiredException $e) {
             $result['error'] = trans('session.loginrequired');
         } catch (\Cartalyst\Sentry\Users\PasswordRequiredException $e) {
             $result['error'] = trans('session.passwordrequired');
@@ -80,7 +80,7 @@ class SentrySession implements SessionInterface {
      *
      * @return no return value
      */
-    public function destroy() 
+    public function destroy()
     {
         $this->sentry->logout();
     }

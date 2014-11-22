@@ -2,6 +2,6 @@
 
 use Users\Form\AbstractForm;
 
-class SigninForm extends AbstractForm{
+class SigninForm extends AbstractForm {
 
 }

@@ -1,9 +1,9 @@
 {
-   "vendor":{ 
+    "vendor": {
         "css": {
             "public/build/css/vendor.min.css": [
                 "public/bower_components/bootstrap/dist/css/bootstrap.min.css"
-             ]
+            ]
         },
         "js": {
             "public/build/js/vendor.min.js": [
@@ -13,16 +13,16 @@
                 "public/bower_components/angular/angular.min.js",
                 "public/bower_components/angular-ui-router/release/angular-ui-router.min.js",
                 "public/bower_components/restangular/dist/restangular.min.js"
-             ]
+            ]
         }
     },
-    "scripts":{ 
-       "css": {
+    "scripts": {
+        "css": {
             "public/build/css/scripts.min.css": [
                 "public/*/assets/css/*.css"
             ]
-       },
-       "js": {
+        },
+        "js": {
             "public/build/js/scripts.min.js": [
                 "public/init.js",
                 "public/lama.js",

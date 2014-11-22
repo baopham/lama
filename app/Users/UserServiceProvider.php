@@ -11,26 +11,26 @@ class UserServiceProvider extends ServiceProvider {
     /**
      * Register the binding
      */
-    public function register() {
+    public function register()
+    {
         $app = $this->app;
-        $app->bind('Users\Session\SessionInterface', function($app) {
-                    return new SentrySession(
-                            $app['sentry']);
-                });
+        $app->bind('Users\Session\SessionInterface', function ($app) {
+            return new SentrySession(
+                $app['sentry']);
+        });
 
-        $app->bind('Users\User\UserInterface', function($app) {
-                    return new SentryUser(
-                                    $app['sentry']
-                    );
-                });
-        
-        $app->bind('Users\Group\GroupInterface', function($app)
-        {
+        $app->bind('Users\User\UserInterface', function ($app) {
+            return new SentryUser(
+                $app['sentry']
+            );
+        });
+
+        $app->bind('Users\Group\GroupInterface', function ($app) {
             return new SentryGroup(
                 $app['sentry']
             );
         });
-	
+
     }
 
 }

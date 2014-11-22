@@ -1,15 +1,15 @@
 <?php namespace Users\Mailer;
 
- class UserMailer extends Mailer {
+class UserMailer extends Mailer {
 
     /**
-     * Outline all the events this class will be listening for. 
-     * 
-     * @param  [type] $events 
-     * 
-     * @return void         
+     * Outline all the events this class will be listening for.
+     *
+     * @param  [type] $events
+     *
+     * @return void
      */
-    public function subscribe($events) 
+    public function subscribe($events)
     {
         $events->listen('user.mail.register', 'Users\Mailer\UserMailer@register');
         $events->listen('user.mail.forgot', 'Users\Mailer\UserMailer@forgot');
@@ -18,12 +18,12 @@
 
     /**
      * Send a confirmation email.
-     * 
+     *
      * @param  $data  array
-     * 		
+     *
      * @return bool
      */
-    public function register($data) 
+    public function register($data)
     {
         $subject = trans('mails.register');
         $view = 'emails.user.register';
@@ -32,12 +32,12 @@
 
     /**
      * Send a reset password email.
-     * 
+     *
      * @param  $data  array
-     * 		
+     *
      * @return bool
      */
-    public function forgot($data) 
+    public function forgot($data)
     {
         $subject = trans('mails.forgot');
         $view = 'emails.user.forgot';
@@ -46,12 +46,12 @@
 
     /**
      * Email New Password info to user.
-     *      
-     * @param  $data array  
-     *		
+     *
+     * @param  $data array
+     *
      * @return bool
      */
-    public function newPassword($data) 
+    public function newPassword($data)
     {
         $subject = trans('mails.newpassword');
         $view = 'emails.user.newpassword';

@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Users\Form\Update;
 
 use Users\Validation\AbstractLaravelValidator;
@@ -8,7 +8,7 @@ class UpdateFormLaravelValidator extends AbstractLaravelValidator {
     /**
      * Validation rules
      *
-     * @var Array 
+     * @var Array
      */
     protected $rules = array(
         'fullname' => 'sometimes|required|min:5|max:25',

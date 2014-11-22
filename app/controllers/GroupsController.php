@@ -4,18 +4,17 @@ namespace App\Controllers;
 use \Controller,
     \Input,
     \Response;
-    
+
 use Users\Group\GroupInterface;
 
-
-class GroupsController extends Controller{
+class GroupsController extends Controller {
 
     protected $group;
-   
-    public function __construct(GroupInterface $group) 
+
+    public function __construct(GroupInterface $group)
     {
         $this->group = $group;
-        
+
     }
 
     /**
@@ -23,7 +22,7 @@ class GroupsController extends Controller{
      *
      * @return json
      */
-    public function index() 
+    public function index()
     {
         $groups = $this->group->all();
         return Response::json($groups, 200);

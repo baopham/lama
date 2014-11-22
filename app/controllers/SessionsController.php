@@ -15,7 +15,7 @@ class SessionsController extends Controller {
     protected $session;
     protected $signinForm;
 
-    public function __construct(SessionInterface $session, SigninForm $signinForm) 
+    public function __construct(SessionInterface $session, SigninForm $signinForm)
     {
         $this->session = $session;
         $this->signinForm = $signinForm;
@@ -26,24 +26,25 @@ class SessionsController extends Controller {
      *
      * @return json
      */
-    public function store() 
-    { 
+    public function store()
+    {
         $isValid = $this->signinForm->valid(Input::only('email', 'password', 'remember'));
         if ($isValid) {
             $result = $this->session->store($this->signinForm->data());
             if (isset($result['user']) && ($result['success'] > 0)) {
-                Event::fire('session.login', array('data'=>$result['user']));
+                Event::fire('session.login', array('data' => $result['user']));
                 return Response::json($result, 200);
             }
-            $error = isset($result['error'])?array_pop($result):trans('session.notfound');
+            $error = isset($result['error']) ? array_pop($result) : trans('session.notfound');
             return Response::json(array(
-                        'success' => 0,
-                        'errors' => array('error' => array($error))), 200);
+                'success' => 0,
+                'errors' => array('error' => array($error))
+            ), 200);
         }
         return Response::json(array(
-                    'success' => 0,
-                    'errors' => $this->signinForm->errors()), 200
-        );
+            'success' => 0,
+            'errors' => $this->signinForm->errors()
+        ), 200);
     }
 
     /**
@@ -51,11 +52,11 @@ class SessionsController extends Controller {
      *
      * @return Redirect
      */
-    public function destroy() {
+    public function destroy()
+    {
         $this->session->destroy();
         Event::fire('session.logout');
         return Redirect::route('home');
     }
 
-    
 }

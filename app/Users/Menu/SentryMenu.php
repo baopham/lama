@@ -7,21 +7,22 @@ class SentryMenu implements MenuInterface {
     protected $sentry;
     protected $menus;
 
-    public function __construct(Sentry $sentry) 
+    public function __construct(Sentry $sentry)
     {
         $this->sentry = $sentry;
     }
+
     /**
      * Get current user menu
-     * 
-     * @param  Array $menus 
-     * 
-     * @return Array      
+     *
+     * @param  Array $menus
+     *
+     * @return Array
      */
-    public function get() 
+    public function get()
     {
         $userMenu = array();
-        if(count($this->menus) > 0) {
+        if (count($this->menus) > 0) {
             foreach ($this->menus as $menu) {
                 $tmp = json_decode($menu, true);
                 if (is_null($tmp['permission']) || $this->hasAccess($tmp['permission'])) {
@@ -31,18 +32,18 @@ class SentryMenu implements MenuInterface {
         }
         return $userMenu;
     }
-    
+
     public function set(array $menus)
     {
         $this->menus = $menus;
     }
-    
+
     /**
      * Check current user permission
-     * 
-     * @param  String $permission 
-     * 
-     * @return bool      
+     *
+     * @param  String $permission
+     *
+     * @return bool
      */
     protected function hasAccess($permission)
     {
@@ -52,5 +53,5 @@ class SentryMenu implements MenuInterface {
         }
         return false;
     }
-    
+
 }

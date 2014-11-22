@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Users\Form\Register;
 
 use Users\Validation\AbstractLaravelValidator;
@@ -8,7 +8,7 @@ class RegisterFormLaravelValidator extends AbstractLaravelValidator {
     /**
      * Validation rules
      *
-     * @var Array 
+     * @var Array
      */
     protected $rules = array(
         'fullname' => 'required|min:5|max:25',

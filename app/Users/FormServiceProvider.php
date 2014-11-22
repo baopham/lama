@@ -15,23 +15,23 @@ class FormServiceProvider extends ServiceProvider {
      *
      * @return void
      */
-    public function register() 
+    public function register()
     {
         $app = $this->app;
-        $app->bind('Users\Form\Signin\SigninForm', function($app) {
-                    return new SigninForm(
-                                    new SigninFormLaravelValidator($app['validator']));
-                });
-        $app->bind('Users\Form\Register\RegisterForm', function($app) {
-                    return new RegisterForm(
-                                    new RegisterFormLaravelValidator($app['validator'])
-                    );
-                });
-        $app->bind('Users\Form\Update\UpdateForm', function($app) {
-                    return new UpdateForm(
-                                    new UpdateFormLaravelValidator($app['validator'])
-                    );
-                });
+        $app->bind('Users\Form\Signin\SigninForm', function ($app) {
+            return new SigninForm(
+                new SigninFormLaravelValidator($app['validator']));
+        });
+        $app->bind('Users\Form\Register\RegisterForm', function ($app) {
+            return new RegisterForm(
+                new RegisterFormLaravelValidator($app['validator'])
+            );
+        });
+        $app->bind('Users\Form\Update\UpdateForm', function ($app) {
+            return new UpdateForm(
+                new UpdateFormLaravelValidator($app['validator'])
+            );
+        });
     }
 
 }

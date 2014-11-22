@@ -3,19 +3,17 @@
 use Illuminate\Filesystem\Filesystem;
 use \Config;
 
-class AssetsManager 
-{
+class AssetsManager {
     protected $filesystem;
     protected $path;
-    
-    
-    public function __construct(Filesystem $filesystem) 
+
+    public function __construct(Filesystem $filesystem)
     {
         $this->filesystem = $filesystem;
         $this->path = app_path();
     }
-    
-    public function assets() 
+
+    public function assets()
     {
         $assets = array();
         $data = $this->getData();
@@ -29,39 +27,38 @@ class AssetsManager
                         $assets[$groupName][$filetype] = array_merge($assets[$groupName][$filetype], $this->getAssets($value));
                     } else {
                         // Prodution
-                        array_push($assets[$groupName][$filetype],str_replace('public/','',$key));
+                        array_push($assets[$groupName][$filetype], str_replace('public/', '', $key));
                     }
                 }
             }
         }
         return $assets;
     }
-    
-    protected function getAssets($pattern) 
+
+    protected function getAssets($pattern)
     {
         $files = array();
-        if(is_array($pattern)){
-            foreach($pattern as $path){
-                $files = array_merge($files,$this->getAssets($path));  
-            } 
-        }
-        else{
-            $files = $this->rglob($pattern); 
+        if (is_array($pattern)) {
+            foreach ($pattern as $path) {
+                $files = array_merge($files, $this->getAssets($path));
+            }
+        } else {
+            $files = $this->rglob($pattern);
         }
         return $files;
     }
-    
-    protected function getFile() 
+
+    protected function getFile()
     {
-        return $this->filesystem->get($this->path.'/config/assets.json');
+        return $this->filesystem->get($this->path . '/config/assets.json');
     }
-    
-    protected function getData() 
+
+    protected function getData()
     {
         $data = json_decode($this->getFile(), true);
         $case = json_last_error();
-        if(($data === null) || ($case !== JSON_ERROR_NONE)){
-           switch ($case) {
+        if (($data === null) || ($case !== JSON_ERROR_NONE)) {
+            switch ($case) {
                 case JSON_ERROR_DEPTH:
                     $error = ' - Maximum stack depth exceeded';
                     break;
@@ -85,15 +82,15 @@ class AssetsManager
         }
         return $data;
     }
-    
-    protected function rglob($pattern, $flags = 0) 
+
+    protected function rglob($pattern, $flags = 0)
     {
-        $pattern= str_replace('public/','',$pattern);
-        $pattern = public_path().'/'.$pattern;
+        $pattern = str_replace('public/', '', $pattern);
+        $pattern = public_path() . '/' . $pattern;
         $files = glob($pattern, $flags);
-        $func = function($value) {
-            return str_replace(public_path(),'',$value);
+        $func = function ($value) {
+            return str_replace(public_path(), '', $value);
         };
-        return array_map($func,$files);
+        return array_map($func, $files);
     }
 }

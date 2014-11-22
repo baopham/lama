@@ -11,7 +11,8 @@ class User extends \Cartalyst\Sentry\Users\Eloquent\User {
      *
      * @return string
      */
-    public function getFullname() {
+    public function getFullname()
+    {
         return $this->fullname;
     }
 
@@ -20,7 +21,8 @@ class User extends \Cartalyst\Sentry\Users\Eloquent\User {
      *
      * @return string
      */
-    public function getUsername() {
+    public function getUsername()
+    {
         return $this->username;
     }
 
@@ -29,7 +31,8 @@ class User extends \Cartalyst\Sentry\Users\Eloquent\User {
      *
      * @return string
      */
-    public function getEmail() {
+    public function getEmail()
+    {
         return $this->email;
     }
 
@@ -38,7 +41,8 @@ class User extends \Cartalyst\Sentry\Users\Eloquent\User {
      *
      * @return integer
      */
-    public function getActivated() {
+    public function getActivated()
+    {
         return $this->activated;
     }
 }

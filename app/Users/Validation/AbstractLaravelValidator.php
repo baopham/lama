@@ -7,39 +7,39 @@ abstract class AbstractLaravelValidator implements ValidableInterface {
     /**
      * Validator
      *
-     * @var \Illuminate\Validation\Factory 
+     * @var \Illuminate\Validation\Factory
      */
     protected $validator;
 
     /**
      * Validation data key => value array
      *
-     * @var Array 
+     * @var Array
      */
     protected $data = array();
 
     /**
      * Validation errors
      *
-     * @var Array 
+     * @var Array
      */
     protected $errors = array();
 
     /**
      * Validation rules
      *
-     * @var Array 
+     * @var Array
      */
     protected $rules = array();
 
     /**
      * Custom Validation Messages
      *
-     * @var Array 
+     * @var Array
      */
     protected $messages = array();
 
-    public function __construct(Factory $validator) 
+    public function __construct(Factory $validator)
     {
         $this->validator = $validator;
     }
@@ -47,9 +47,9 @@ abstract class AbstractLaravelValidator implements ValidableInterface {
     /**
      * Set data to validate
      *
-     * @return \Authority\Service\Validation\AbstractLaravelValidator 
+     * @return \Authority\Service\Validation\AbstractLaravelValidator
      */
-    public function with(array $data) 
+    public function with(array $data)
     {
         $this->data = $data;
         return $this;
@@ -58,10 +58,10 @@ abstract class AbstractLaravelValidator implements ValidableInterface {
     /**
      * Validation passes or fails
      *
-     * @return boolean 
+     * @return boolean
      */
-    public function passes() 
-    {   
+    public function passes()
+    {
         $validator = $this->validator->make($this->data, $this->rules, $this->messages);
         if ($validator->fails()) {
             $this->errors = $validator->messages();
@@ -73,19 +73,19 @@ abstract class AbstractLaravelValidator implements ValidableInterface {
     /**
      * Return errors, if any
      *
-     * @return array 
+     * @return array
      */
-    public function errors() 
+    public function errors()
     {
         return $this->errors;
     }
-    
+
     /**
      * Return errors, if any
      *
-     * @return array 
+     * @return array
      */
-    public function data() 
+    public function data()
     {
         return $this->data;
     }

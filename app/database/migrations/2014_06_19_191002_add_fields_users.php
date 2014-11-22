@@ -10,10 +10,9 @@ class AddFieldsUsers extends Migration {
      *
      * @return void
      */
-    public function up() 
+    public function up()
     {
-        Schema::table('users', function(Blueprint $table)
-        {
+        Schema::table('users', function (Blueprint $table) {
             $table->string('fullname');
             $table->string('username')->unique();
         });
@@ -24,10 +23,9 @@ class AddFieldsUsers extends Migration {
      *
      * @return void
      */
-    public function down() 
+    public function down()
     {
-        Schema::table('users', function(Blueprint $table) 
-        {
+        Schema::table('users', function (Blueprint $table) {
             $table->dropColumn(array('fullname', 'username'));
         });
     }

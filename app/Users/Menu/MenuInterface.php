@@ -1,15 +1,14 @@
 <?php namespace Users\Menu;
 
-interface MenuInterface
-{
+interface MenuInterface {
     /**
      * Get current user menu
-     * 
-     * @param  Array $menus 
-     * 
-     * @return Array      
+     *
+     * @param  Array $menus
+     *
+     * @return Array
      */
     public function get();
-    
-    public function set(array $menus); 
+
+    public function set(array $menus);
 }

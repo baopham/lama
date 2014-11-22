@@ -2,7 +2,7 @@
 
 class TestCase extends Illuminate\Foundation\Testing\TestCase {
 
-	/**
+    /**
      * @var bool
      */
     protected $useDatabase = true;
@@ -41,14 +41,14 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
 
         if ($this->useDatabase) {
             $this->setUpDb();
-            
+
         }
         // To test auth, we must re-enable filters on the routes
         // By default, filters are disabled in testing
         Route::enableFilters();
     }
 
-      /**
+    /**
      * Tear down the database for tests
      *
      */
@@ -74,22 +74,11 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
      */
     public function setUpDb()
     {
-        Artisan::call('migrate', array('--package'=>'cartalyst/sentry'));
+        Artisan::call('migrate', array('--package' => 'cartalyst/sentry'));
         Artisan::call('migrate');
         Artisan::call('db:seed');
     }
 
-   
-
-   
-
-   
-    
-   
-
-   
-
-  
     /**
      * Impersonate a guest
      *
@@ -108,7 +97,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
     {
         $user = Sentry::findUserByLogin($this->userEmail);
         Sentry::setUser($user);
-       
+
     }
 
     /**
@@ -119,10 +108,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
     {
         $admin = Sentry::findUserByLogin($this->adminEmail);
         Sentry::setUser($admin);
-       
+
     }
 
-
-
-        
 }
