@@ -13,7 +13,7 @@
         "npm": "1.3.x"
     },
     "scripts": {
-        "postinstall": "./node_modules/protractor/bin/webdriver-manager update --chrome && cp ./node_modules/protractor/example/conf.js protractor_conf.js"
+        "postinstall": "./node_modules/protractor/bin/webdriver-manager update --chrome && cp ./node_modules/protractor/example/conf.js protractor.conf.js"
     },
     "dependencies": {
         "bin-version-check": "~0.1.0",
