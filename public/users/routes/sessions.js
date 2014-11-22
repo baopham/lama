@@ -9,7 +9,7 @@ angular.module('lama.users')
                 abstract: true,
                 templateUrl: 'users/views/session.html',
                 resolve: {
-                    issessionedin: function (Sessions) {
+                    isSessionedIn: function (Sessions) {
                         return Sessions.isSessionedIn();
                     }
                 }

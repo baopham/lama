@@ -10,7 +10,7 @@ angular.module('lama.users')
                 abstract: true,
                 templateUrl: 'users/views/users.html',
                 resolve: {
-                    issessionedin: function (Sessions) {
+                    isSessionedIn: function (Sessions) {
                         return Sessions.isLoggedIn();
                     }
                 }

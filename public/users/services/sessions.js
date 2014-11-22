@@ -6,13 +6,13 @@ angular.module('lama.users')
         function ($http) {
             return {
                 isSessionedIn: function () {
-                    $http.get('/api/v1/issessionedin');
+                    $http.get('/api/v1/isSessionedIn');
                 },
                 isLoggedIn: function () {
-                    $http.get('/api/v1/isloggedin');
+                    $http.get('/api/v1/isLoggedIn');
                 },
                 hasAccess: function (permission) {
-                    $http.get('/api/v1/hasaccess/' + permission);
+                    $http.get('/api/v1/hasAccess/' + permission);
                 }
             };
         }
