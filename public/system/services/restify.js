@@ -1,29 +1,29 @@
 'use strict';
 
 angular.module('lama.system')
-    .factory('Restify',['Restangular', function(Restangular) {
-        return function(route){
+    .factory('Restify', ['Restangular', function (Restangular) {
+        return function (route) {
             var elements = Restangular.all(route);
             return {
-                get : function (id) {
+                get: function (id) {
                     return Restangular.one(route, id).get();
                 },
-                getList : function () {
+                getList: function () {
                     return elements.getList();
                 },
-                post : function(data) {
+                post: function (data) {
                     return elements.post(data);
                 },
-                copy : function(original) {
+                copy: function (original) {
                     return Restangular.copy(original);
                 },
-                all : function(route) {
+                all: function (route) {
                     return Restangular.all(route);
                 },
-                one : function(id) {
+                one: function (id) {
                     return Restangular.one(route, id);
                 },
-                getElements : function() {
+                getElements: function () {
                     return elements;
                 }
             };

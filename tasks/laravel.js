@@ -15,7 +15,7 @@ var spawn = require('child_process').spawn,
     binVersionCheck = require('bin-version-check');
 
 module.exports = function (grunt) {
-    
+
     var checkServerTries = 0;
 
     function checkServer(hostname, port, cb) {

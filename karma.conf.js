@@ -1,12 +1,12 @@
 // Karma configuration
 // Generated on Wed Aug 13 2014 21:55:53 GMT+0200 (CEST)
 
-module.exports = function(config) {
+module.exports = function (config) {
     var _ = require('lodash'),
         basePath = '.',
         assets = require(basePath + '/app/config/assets.json');
-    var vendor =  _.flatten(_.values(assets.vendor.js));
-    var scripts =  _.flatten(_.values(assets.scripts.js));
+    var vendor = _.flatten(_.values(assets.vendor.js));
+    var scripts = _.flatten(_.values(assets.scripts.js));
     // take a look at http://stackoverflow.com/a/25412250/356380
     var init = scripts.shift();
     var spec = [
@@ -15,8 +15,8 @@ module.exports = function(config) {
         'public/system/tests/unit/**/*.js',
         'public/users/tests/unit/**/*.js'
     ];
-    var files = vendor.concat(scripts,spec);
-      
+    var files = vendor.concat(scripts, spec);
+
     config.set({
 
         // base path, that will be used to resolve files and exclude
@@ -64,6 +64,6 @@ module.exports = function(config) {
         // Continuous Integration mode
         // if true, it capture browsers, run tests and exit
         singleRun: true
-        
+
     });
 };

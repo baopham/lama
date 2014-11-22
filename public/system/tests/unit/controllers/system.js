@@ -1,15 +1,15 @@
 'use strict';
 describe('LAMA Unit Test: system module', function () {
-    
+
     describe('SystemController', function () {
-        
-        beforeEach(function() {
+
+        beforeEach(function () {
             module('lama.system');
         });
 
         var SystemController,
-        $rootScope,
-        $scope;
+            $rootScope,
+            $scope;
 
         beforeEach(inject(function ($controller, _$rootScope_) {
             $rootScope = _$rootScope_;
@@ -17,14 +17,14 @@ describe('LAMA Unit Test: system module', function () {
             SystemController = $controller('SystemController', {
                 $scope: $scope
             });
-               
+
         }));
 
-        it('should expose some global scope', function() {
+        it('should expose some global scope', function () {
             expect($rootScope.global).toBeTruthy();
         });
-        
+
     });
-        
+
 });
 

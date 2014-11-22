@@ -1,14 +1,14 @@
-angular.module('state.mock',[]);
-angular.module('state.mock').service('$state', function($q){
+angular.module('state.mock', []);
+angular.module('state.mock').service('$state', function ($q) {
     this.expectedTransitions = [];
-    this.transitionTo = function(stateName){
-        if(this.expectedTransitions.length > 0){
+    this.transitionTo = function (stateName) {
+        if (this.expectedTransitions.length > 0) {
             var expectedState = this.expectedTransitions.shift();
-            if(expectedState !== stateName){
-                throw Error('Expected transition to state: ' + expectedState + ' but transitioned to ' + stateName );
+            if (expectedState !== stateName) {
+                throw Error('Expected transition to state: ' + expectedState + ' but transitioned to ' + stateName);
             }
-        }else{
-            throw Error('No more transitions were expected! Tried to transition to '+ stateName );
+        } else {
+            throw Error('No more transitions were expected! Tried to transition to ' + stateName);
         }
         console.log('Mock transition to: ' + stateName);
         var deferred = $q.defer();
@@ -17,13 +17,13 @@ angular.module('state.mock').service('$state', function($q){
         return promise;
     }
     this.go = this.transitionTo;
-    this.expectTransitionTo = function(stateName){
+    this.expectTransitionTo = function (stateName) {
         this.expectedTransitions.push(stateName);
     }
- 
- 
-    this.ensureAllTransitionsHappened = function(){
-        if(this.expectedTransitions.length > 0){
+
+
+    this.ensureAllTransitionsHappened = function () {
+        if (this.expectedTransitions.length > 0) {
             throw Error('Not all transitions happened!');
         }
     }

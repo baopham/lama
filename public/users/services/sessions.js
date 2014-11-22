@@ -3,16 +3,16 @@
 //Service for session status
 angular.module('lama.users')
     .factory('Sessions', ['$http',
-        function($http) {
-            return{
-                isSessionedIn :function() {
+        function ($http) {
+            return {
+                isSessionedIn: function () {
                     $http.get('/api/v1/issessionedin');
                 },
-                isLoggedIn :function() {
+                isLoggedIn: function () {
                     $http.get('/api/v1/isloggedin');
                 },
-                hasAccess :function(permission) {
-                    $http.get('/api/v1/hasaccess/'+permission);
+                hasAccess: function (permission) {
+                    $http.get('/api/v1/hasaccess/' + permission);
                 }
             };
         }

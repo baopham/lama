@@ -1,28 +1,28 @@
 'use strict';
 
-describe('LAMA Unit Test:  users module', function() {
-    beforeEach(function() {
+describe('LAMA Unit Test:  users module', function () {
+    beforeEach(function () {
         module('lama.users');
     });
-    describe('UserController', function() {
-        
+    describe('UserController', function () {
+
     });
-    describe('UserCreateController', function() {
-        
+    describe('UserCreateController', function () {
+
     });
-    describe('UserSuspendController', function() {
-        
+    describe('UserSuspendController', function () {
+
     });
-    describe('UserEditController', function() {
-        
+    describe('UserEditController', function () {
+
     });
-    describe('UserDeleteController', function() {
-        
+    describe('UserDeleteController', function () {
+
     });
-    describe('UserAccountController', function() {
-        
+    describe('UserAccountController', function () {
+
     });
-    describe('UserPasswordController', function() {
-        
+    describe('UserPasswordController', function () {
+
     });
 });

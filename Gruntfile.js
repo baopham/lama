@@ -1,19 +1,18 @@
 'use strict';
 
 
-
 var paths = {
-    js: ['Gruntfile.js', 'tasks/laravel.js', 'public/**/*.js','!public/**/tests/**', '!public/build/**', '!public/bower_components/**'],
+    js: ['Gruntfile.js', 'tasks/laravel.js', 'public/**/*.js', '!public/**/tests/**', '!public/build/**', '!public/bower_components/**'],
     html: ['public/**/views/**'],
     css: ['public/**/assets/css/*.css', '!public/bower_components/**'],
     php: ['app/**/*.php', '!vendor/**']
 };
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
     require('time-grunt')(grunt);
 
-   // Project Configuration
+    // Project Configuration
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         assets: grunt.file.readJSON('app/config/assets.json'),
@@ -118,12 +117,12 @@ module.exports = function(grunt) {
             all: {}
         }
     });
-    
-    grunt.loadTasks('tasks');  
+
+    grunt.loadTasks('tasks');
     require('load-grunt-tasks')(grunt);
-    
-    grunt.registerTask('default', ['jshint','concurrent:all']);
-    grunt.registerTask('prod', ['clean', 'concat', 'cssmin','uglify']);
+
+    grunt.registerTask('default', ['jshint', 'concurrent:all']);
+    grunt.registerTask('prod', ['clean', 'concat', 'cssmin', 'uglify']);
     grunt.registerTask('unit', ['karma:all']);
     grunt.registerTask('e2e', ['concurrent:e2e']);
 

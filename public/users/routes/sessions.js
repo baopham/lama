@@ -2,32 +2,32 @@
 
 //Setting up route
 angular.module('lama.users')
-    .config(['$stateProvider',function($stateProvider) {
+    .config(['$stateProvider', function ($stateProvider) {
         // states for session
         $stateProvider
             .state('session', {
                 abstract: true,
                 templateUrl: 'users/views/session.html',
                 resolve: {
-                    issessionedin: function(Sessions){
+                    issessionedin: function (Sessions) {
                         return Sessions.isSessionedIn();
-                    } 
+                    }
                 }
             })
             .state('session.signin', {
                 url: '/user/signin',
                 templateUrl: 'users/views/signin.html',
-                controller:'SessionSigninController'
-             })
+                controller: 'SessionSigninController'
+            })
             .state('session.register', {
                 url: '/user/register',
                 templateUrl: 'users/views/register.html',
-                controller:'SessionRegisterController'
+                controller: 'SessionRegisterController'
             })
             .state('session.password', {
                 url: '/user/forgot-password',
                 templateUrl: 'users/views/forgot-password.html',
-                controller:'SessionForgotPasswordController'
+                controller: 'SessionForgotPasswordController'
             })
             .state('session.register-thanks', {
                 url: '/user/register-thanks',
@@ -41,5 +41,5 @@ angular.module('lama.users')
                 url: '/user/reset-thanks',
                 templateUrl: 'users/views/reset-thanks.html'
             });
-        }
+    }
     ]);

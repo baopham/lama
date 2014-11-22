@@ -1,6 +1,6 @@
 'use strict';
 
-angular.element(document).ready(function() {
+angular.element(document).ready(function () {
     //Then init the app
-    angular.bootstrap(document, ['lama']); 
+    angular.bootstrap(document, ['lama']);
 });

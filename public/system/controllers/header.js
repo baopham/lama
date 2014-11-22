@@ -2,6 +2,6 @@
 
 angular.module('lama.system')
     .controller('HeaderController', ['$scope',
-        function($scope) { 
-        }   
+        function ($scope) {
+        }
     ]);
