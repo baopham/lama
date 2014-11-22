@@ -45,7 +45,7 @@ module.exports = function (grunt) {
         var cb = this.async();
         var options = this.options({
             port: 8000,
-            hostname: '127.0.0.1',
+            hostname: 'localhost',
             base: '.',
             keepalive: true,
             open: true,
