@@ -1,11 +1,14 @@
 <div class="well clearfix">
     <a class="btn btn-primary pull-left" data-ui-sref="user_actions.create">New</a>
+
     <form class="form-horizontal pull-right" role="form">
         <div class="form-group form-no-required">
-          <label class="sr-only" for="search">Search</label>
-          <div class="col-md-12">
-            <input type="text" class="form-control" id="search" placeholder="Search for email and fullname" ng-model="query">
-          </div>
+            <label class="sr-only" for="search">Search</label>
+
+            <div class="col-md-12">
+                <input type="text" class="form-control" id="search" placeholder="Search for email and fullname"
+                       ng-model="query">
+            </div>
         </div>
     </form>
 </div>
@@ -24,38 +27,40 @@
         </tr>
     </thead>
     <tbody>
-        <tr data-ng-controller="UserInnerController" data-ng-repeat="user in paginator.items  | filter: search">
-            <td>{{user.id}}</td>
-            <td>{{user.fullname}}</td>
-            <td>{{user.username}}</td>
-            <td>{{user.email}}</td>
-            <td id="user-status-{{user.id}}">{{user.status}}</td>
-            <td>{{user.created_at}}</td>
-            <td>
-                <ul class="groups">
-                    <li data-ng-repeat="group in user.groups">
-                        {{group.name}}
-                    </li>
-                </ul>
-            </td>
-            <td>
-                <a class="btn btn-warning btn-sm" lama-user-banner current-user="user">
-                    <span class="glyphicon glyphicon-warning-sign"></span> Ban
-                </a>
-                <a data-ng-if="user.showSuspend" data-ui-sref="user_actions.suspend({ id: user.id,page:paginator.getCurrentPage() })" class="btn btn-warning btn-sm">
-                    <span class="glyphicon glyphicon glyphicon-time"></span> Suspend
-                </a>
-                <a data-ng-if="user.showUnSuspend" data-ng-click="unSuspend(user.id)" class="btn btn-warning btn-sm">
-                    <span class="glyphicon glyphicon glyphicon-time"></span> Unsuspend
-                </a>
-                <a data-ui-sref="user_actions.edit({ id: user.id })" class="btn btn-warning btn-sm">
-                    <span class="glyphicon glyphicon-edit"></span> Edit
-                </a>
-                <a data-ui-sref="user_actions.delete({ id: user.id })" class="btn btn-danger btn-sm">
-                    <span class="glyphicon glyphicon-trash"></span> Delete
-                </a>
-            </td>
-        </tr>
+    <tr data-ng-controller="UserInnerController" data-ng-repeat="user in paginator.items  | filter: search">
+        <td>{{user.id}}</td>
+        <td>{{user.fullname}}</td>
+        <td>{{user.username}}</td>
+        <td>{{user.email}}</td>
+        <td id="user-status-{{user.id}}">{{user.status}}</td>
+        <td>{{user.created_at}}</td>
+        <td>
+            <ul class="groups">
+                <li data-ng-repeat="group in user.groups">
+                    {{group.name}}
+                </li>
+            </ul>
+        </td>
+        <td>
+            <a class="btn btn-warning btn-sm" lama-user-banner current-user="user">
+                <span class="glyphicon glyphicon-warning-sign"></span> Ban
+            </a>
+            <a data-ng-if="user.showSuspend"
+               data-ui-sref="user_actions.suspend({ id: user.id,page:paginator.getCurrentPage() })"
+               class="btn btn-warning btn-sm">
+                <span class="glyphicon glyphicon glyphicon-time"></span> Suspend
+            </a>
+            <a data-ng-if="user.showUnSuspend" data-ng-click="unSuspend(user.id)" class="btn btn-warning btn-sm">
+                <span class="glyphicon glyphicon glyphicon-time"></span> Unsuspend
+            </a>
+            <a data-ui-sref="user_actions.edit({ id: user.id })" class="btn btn-warning btn-sm">
+                <span class="glyphicon glyphicon-edit"></span> Edit
+            </a>
+            <a data-ui-sref="user_actions.delete({ id: user.id })" class="btn btn-danger btn-sm">
+                <span class="glyphicon glyphicon-trash"></span> Delete
+            </a>
+        </td>
+    </tr>
     </tbody>
 </table>
 <div class="text-center" data-ng-if="hasUsers">
@@ -66,8 +71,9 @@
         <li data-ng-class="{disabled: !paginator.hasFirst()}">
             <a href data-ng-click="paginator.first()">&lsaquo;</a>
         </li>
-        <li data-ng-repeat="n in [] | pagination:paginator.getStart():paginator.getEnd()" data-ng-class="{active: n == paginator.getCurrentPage()}">
-            <a  href data-ng-click="paginator.toPageId(n)">{{n}}</a>
+        <li data-ng-repeat="n in [] | pagination:paginator.getStart():paginator.getEnd()"
+            data-ng-class="{active: n == paginator.getCurrentPage()}">
+            <a href data-ng-click="paginator.toPageId(n)">{{n}}</a>
         </li>
         <li data-ng-class="{disabled: !paginator.hasLast()}">
             <a href data-ng-click="paginator.last()">&rsaquo; </a>

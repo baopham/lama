@@ -7,19 +7,24 @@
             <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" data-ui-sref="home">Lama</a>
-    </div><!--/.navbar-header -->
+    </div>
+    <!--/.navbar-header -->
     <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-left">
-            <li data-ng-repeat="menu in menus"  data-ng-class="{active:$state.includes('{{menu.link}}')}">
+            <li data-ng-repeat="menu in menus" data-ng-class="{active:$state.includes('{{menu.link}}')}">
                 <a data-ui-sref="{{menu.link}}">{{menu.title}}</a>
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right" data-ng-if="!global.authenticated">
-            <li data-ng-class="{active: $state.includes('session.register')}"><a data-ui-sref="session.register">Register</a></li>
-            <li data-ng-class="{active: $state.includes('session.signin')}"><a data-ui-sref="session.signin">Sign in</a></li>
+            <li data-ng-class="{active: $state.includes('session.register')}"><a data-ui-sref="session.register">Register</a>
+            </li>
+            <li data-ng-class="{active: $state.includes('session.signin')}"><a data-ui-sref="session.signin">Sign in</a>
+            </li>
         </ul>
         <ul class="nav navbar-nav navbar-right" data-ng-if="global.authenticated">
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-user"></i><span data-ng-bind="global.user.fullname"></span><b class="caret"></b></a>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><i
+                    class="glyphicon glyphicon-user"></i><span data-ng-bind="global.user.fullname"></span><b
+                    class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a data-ui-sref="users.account({id: global.user.id})">Your account</a></li>
                     <li><a data-ui-sref="users.password({id: global.user.id})">Change Password</a></li>
@@ -27,5 +32,6 @@
                 </ul>
             </li>
         </ul>
-    </div><!--/.nav-collapse -->
+    </div>
+    <!--/.nav-collapse -->
 </div><!--/.container -->
