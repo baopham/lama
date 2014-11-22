@@ -1,42 +1,42 @@
 {
-  "name": "Lama",
-  "description": "LAMA is a boilerplate that provides a nice starting point for Laravel and AngularJS based applications",
-  "version": "0.0.1",
-  "private": true,
-  "author": "Bedini Fabio aka whisher <ilwebdifabio.it>",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/whisher/lama"
-  },
-  "engines": {
-    "node": "0.10.x",
-    "npm": "1.3.x"
-  },
-  "scripts": {
-    "postinstall": "./node_modules/protractor/bin/webdriver-manager update --chrome && cp ./node_modules/protractor/example/conf.js protractor_conf.js"
-  },
-  "dependencies": {
-    "bin-version-check": "~0.1.0",
-    "lodash": "^2.4.1",
-    "opn": "~0.1.2"
-  },
-  "devDependencies": {
-    "grunt-concurrent": "~0.5.0",
-    "grunt-contrib-clean": "~0.5.0",
-    "grunt-contrib-concat": "~0.5.0",
-    "grunt-contrib-csslint": "~0.2.0",
-    "grunt-contrib-cssmin": "~0.10.0",
-    "grunt-contrib-jshint": "^0.10.0",
-    "grunt-contrib-uglify": "~0.5.0",
-    "grunt-contrib-watch": "~0.6.1",
-    "grunt-karma": "^0.8.3",
-    "grunt-protractor-runner": "^1.1.4",
-    "karma": "^0.12.21",
-    "karma-firefox-launcher": "^0.1.3",
-    "karma-jasmine": "~0.1.5",
-    "karma-phantomjs-launcher": "^0.1.4",
-    "load-grunt-tasks": "^0.6.0",
-    "protractor": "^1.4.0",
-    "time-grunt": "^0.3.2"
-  }
+    "name": "Lama",
+    "description": "LAMA is a boilerplate that provides a nice starting point for Laravel and AngularJS based applications",
+    "version": "0.0.1",
+    "private": true,
+    "author": "Bedini Fabio aka whisher <ilwebdifabio.it>",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/whisher/lama"
+    },
+    "engines": {
+        "node": "0.10.x",
+        "npm": "1.3.x"
+    },
+    "scripts": {
+        "postinstall": "./node_modules/protractor/bin/webdriver-manager update --chrome && cp ./node_modules/protractor/example/conf.js protractor_conf.js"
+    },
+    "dependencies": {
+        "bin-version-check": "~0.1.0",
+        "lodash": "^2.4.1",
+        "opn": "~0.1.2"
+    },
+    "devDependencies": {
+        "grunt-concurrent": "~0.5.0",
+        "grunt-contrib-clean": "~0.5.0",
+        "grunt-contrib-concat": "~0.5.0",
+        "grunt-contrib-csslint": "~0.2.0",
+        "grunt-contrib-cssmin": "~0.10.0",
+        "grunt-contrib-jshint": "^0.10.0",
+        "grunt-contrib-uglify": "~0.5.0",
+        "grunt-contrib-watch": "~0.6.1",
+        "grunt-karma": "^0.8.3",
+        "grunt-protractor-runner": "^1.1.4",
+        "karma": "^0.12.21",
+        "karma-firefox-launcher": "^0.1.3",
+        "karma-jasmine": "~0.1.5",
+        "karma-phantomjs-launcher": "^0.1.4",
+        "load-grunt-tasks": "^0.6.0",
+        "protractor": "^1.4.0",
+        "time-grunt": "^0.3.2"
+    }
 }

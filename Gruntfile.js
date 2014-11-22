@@ -59,8 +59,8 @@ module.exports = function (grunt) {
             },
             src: paths.css
         },
-        laravel:{
-            dist:{},
+        laravel: {
+            dist: {},
             e2e: {
                 options: {
                     open: false
@@ -68,25 +68,25 @@ module.exports = function (grunt) {
             }
         },
         concurrent: {
-            all:{
+            all: {
                 tasks: ['laravel:dist', 'watch'],
                 options: {
                     logConcurrentOutput: true
                 }
             },
-            e2e:{
+            e2e: {
                 tasks: ['laravel:e2e', 'protractor:all'],
                 options: {
                     logConcurrentOutput: true
                 }
             }
         },
-        concat:{
-            productionCssVendor:{
+        concat: {
+            productionCssVendor: {
                 files: '<%= assets.vendor.css %>',
                 nonull: true
             },
-            productionJsVendor:{
+            productionJsVendor: {
                 files: '<%= assets.vendor.js %>',
                 nonull: true
             }
