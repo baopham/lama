@@ -24,14 +24,49 @@ LAMA is a boilerplate that provides a nice starting point for Laravel/Sentry and
     cd lama
     php composer.phar install
     chmod -R 0777 app/storage
-    configuring your database app/config/database.php
+
+Configure your environment by adding your machine name (run `hostname`) in `bootstrap/start.php`:
+```php
+$env = $app->detectEnvironment(array(
+
+    'local' => array('*.local'),
+
+));
+```
+
+Then copy `app/config/app.php`, `app/config/database.php`, `app/config/mail.php`, `app/config/lama.php` to your local config directory: `app/config/local` (you will have to create the local folder) and configure the settings.
+`app/config/local/app.php` will probably look like this, as the rest of the configuration can be left to their defaults:
+
+```php
+<?php
+
+return array(
+
+    'url' => 'http://myproject.local',
+
+    'timezone' => 'UTC',
+
+    'key' => 'secretkey',
+
+    'providers' => append_config( array(
+
+            /* Uncomment for use in development */
+            //'Way\Generators\GeneratorsServiceProvider', // Generators
+
+        )
+    ),
+
+);
+```
+Then run:
+
     php artisan migrate --package=cartalyst/sentry
     php artisan migrate
     php artisan db:seed
     php artisan key:generate
     npm install
     bower install
-    
+
 ## Grunt
     grunt (run the app at http://localhost:8000)
     grunt prod (build css and js)
