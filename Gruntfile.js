@@ -5,7 +5,8 @@ var paths = {
     js: ['Gruntfile.js', 'tasks/laravel.js', 'public/**/*.js', '!public/**/tests/**', '!public/build/**', '!public/bower_components/**'],
     html: ['public/**/views/**'],
     css: ['public/**/assets/css/*.css', '!public/bower_components/**'],
-    php: ['app/**/*.php', '!vendor/**']
+    php: ['app/**/*.php', '!vendor/**'],
+    dest: 'public/build'
 };
 
 module.exports = function (grunt) {
@@ -16,7 +17,17 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         assets: grunt.file.readJSON('app/config/assets.json'),
-        clean: ['public/build'],
+        clean: [paths.dest],
+        copy: {
+            main: {
+                files: [{
+                    expand: true,
+                    cwd: 'public/bower_components/bootstrap-css-only',
+                    src: 'fonts/*',
+                    dest: paths.dest
+                }]
+            }
+        },
         watch: {
             css: {
                 files: paths.css,
@@ -122,7 +133,7 @@ module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
 
     grunt.registerTask('default', ['jshint', 'concurrent:all']);
-    grunt.registerTask('prod', ['clean', 'concat', 'cssmin', 'uglify']);
+    grunt.registerTask('prod', ['clean', 'concat', 'cssmin', 'uglify', 'copy']);
     grunt.registerTask('unit', ['karma:all']);
     grunt.registerTask('e2e', ['concurrent:e2e']);
 
