@@ -55,7 +55,10 @@ angular.module('lama.system')
                         element.append(tpl);
                     }
                     else {
-                        $('#loading').remove();
+                        var loading = element[0].querySelector('#loading');
+                        if (loading) {
+                            loading.remove();
+                        }
                     }
 
                 });
