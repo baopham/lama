@@ -27,7 +27,7 @@ angular.module('lama.users')
                         .then(function (data) {
                             var status = data.ban > 0 ? 'Banned' : 'Active';
                             var action = data.ban > 0 ? 'Unban' : 'Ban';
-                            $('#user-status-' + scope.currentUser.id).text(status);
+                            angular.element(document.querySelector('#user-status-' + scope.currentUser.id)).text(status);
                             scope.currentUser.status = status;
                             element.text(action);
                         },
